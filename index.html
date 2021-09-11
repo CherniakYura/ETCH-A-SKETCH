@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETCH-A-SKETCH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        div {
+
+            background-color: rgba(255, 255, 255, 0.8);
+
+            transition: .4s all;
+            width: 100%/16;
+            height: 100%;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .divhover {
+            background-color: black;
+        }
+
+        main {
+            display: grid;
+            position: absolute;
+            left: 27%;
+
+            grid-template-columns: repeat(16, auto);
+            column-gap: 0;
+            height: 960px;
+            width: 960px;
+            border: 2px solid rgb(20, 20, 20);
+        }
+
+        button {
+            width: 50%;
+            font-size: 30px;
+            margin: 10px;
+            padding: 20px;
+        }
+
+        input {
+            width: 5%;
+
+            height: 9vh;
+            margin: 10px;
+            border: 0px solid black;
+        }
+
+        #button {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="button">
+        <button>Make new grid</button>
+        <input type="color">
+    </section>
+
+
+    <main>
+
+    </main>
+
+
+
+    <script>
+        let main = document.querySelector('main');
+        let input = document.querySelector('input');
+
+
+        makeGrid(16);
+
+
+
+        function makeGrid(size) {
+            while (main.firstChild) {
+                main.removeChild(main.firstChild);
+            }
+
+            for (let i = 0; i < size * size; i++) {
+
+                let div = document.createElement('div');
+                main.style.gridTemplateColumns = `repeat(${size}, auto)`;
+                div.offsetWidth = `960/${size} px`;
+                div.offsetHeight = `960/${size} px`;
+                // div.style.backgroundColor = '#'+Math.floor(Math.random()*16777215).toString(16);
+                main.appendChild(div);
+
+            }
+            divs = document.querySelectorAll('div');
+            divs.forEach(div => {
+                div.addEventListener('mouseover', () => {
+                    div.style.backgroundColor = input.value;
+
+                });
+            });
+        }
+
+
+        let button = document.querySelector('button');
+        button.addEventListener('click', () => {
+            let grid = prompt('What the size of new grid?', 0);
+            while (grid > 100) {
+                grid = prompt('Max size is 100', 0);
+            }
+            if (grid) {
+                makeGrid(grid);
+            }
+        });
+
+
+
+        
+
+
+
+
+    </script>
+
+</body>
+
+</html>
